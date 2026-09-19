@@ -1,22 +1,25 @@
-# Following the Ripples: A Statistical Framework for Pinpointing the Engineering Changes That Most Reduce Support Load
+# Finding the Fixes That Prevent the Most Support Work
+
+*Turning support, incident, and escalation data into a short, ranked, verifiable list of engineering priorities.*
 
 | | |
 | --- | --- |
-| **Purpose** | Define a complete, statistically defensible method for identifying the engineering changes that will most reduce avoidable customer and operational burden |
+| **Purpose** | Find the few changes to the product we already ship that would prevent the most support tickets, incidents, and escalations — and prove afterward that they did |
 | **Primary audience** | Engineering managers and product managers who set sprint and quarter priorities |
-| **Secondary audience** | Data, AI, and platform teams that build the measurement system |
-| **System boundary** | Improving the experience, reliability, operability, and support cost of the current product; not selecting net-new product capabilities |
+| **Secondary audience** | Data, AI, and platform teams who build the measurement system |
+| **In scope** | The product as it exists today: its defects, defaults, automation gaps, and operability |
+| **Out of scope** | Choosing new product capabilities, and running the support queue |
 | **Reproducible examples** | [`worked_example.py`](./worked_example.py), [`validation_example.py`](./validation_example.py) |
 
 ---
 
 ## Abstract
 
-Engineering organizations receive a continuous stream of indirect evidence about the quality of their products: support requests, incidents, escalations, emergency configuration changes, repeated manual interventions, and customer frustration. Each event is an observable output of an underlying product system. The management problem is to infer, from those outputs, which changes to the existing product would prevent the greatest amount of future burden.
+Every support ticket, incident, escalation, and emergency configuration change is evidence about where the product we already ship costs customers and the company time. Individually these events look like noise. In aggregate they point back at a limited number of causes.
 
-This paper presents an end-to-end framework for making that inference. It defines an actionable unit of analysis, normalizes event counts by customer exposure, measures statistically unusual load, corrects for burstiness and small samples, attributes changes in load to plausible causes, converts avoidable burden into economic value, and validates shipped interventions against untreated comparison groups. It also defines the organizational boundary required for the system to work: support and incident teams supply essential evidence, while engineering managers and product managers consume the resulting priorities and decide where engineering effort is applied.
+This paper sets out how to read that aggregate and act on it: choose a unit of analysis engineering can own, divide event counts by how many customers were exposed, separate the places where load is genuinely higher than expected from those where it is merely high, price that load in hours, trace it back to the defect or change that produced it, and measure afterward whether the fix worked.
 
-The intended output is not a larger analytics dashboard or a more efficient ticket queue. It is a short, defensible list of existing product surfaces whose improvement is expected to prevent the most downstream work, accompanied by uncertainty, ownership, predicted impact, and a method for determining whether each intervention actually worked.
+The output is deliberately small: a ranked list of places in the current product where a change is expected to prevent the most future work, each with an owner, a predicted saving, an uncertainty range, and a plan to verify it. It is not a bigger dashboard and not a faster ticket queue. Support and incident teams supply the evidence; engineering managers and product managers consume the ranking and decide where effort goes.
 
 ---
 
